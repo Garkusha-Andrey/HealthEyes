@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.one.pilot.healtheyes.healtheyes.model.Exercise;
@@ -58,7 +59,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void clickStartExercise(View view) {
         Log.i("Main", "Start exercise");
+        if (exercises.getCurrentExercise().getStatus() == Exercise.ExerciseStatus.RUNNING)
+            return;
+
+        exercises.getCurrentExercise().run();
         int duration = exercises.getCurrentExercise().getLengthOfExcercise();
+
+        findViewById(R.id.bn_next_exercise).setEnabled(false); // Disable Next Button
+        findViewById(R.id.bn_prev_exercise).setEnabled(false); // Disable Prev Button
 
         CountDownTimer countDownTimer = new CountDownTimer(duration * 1000, 100) {
             @Override
@@ -67,7 +75,11 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFinish() {}
+            public void onFinish() {
+                exercises.getCurrentExercise().finish();
+                findViewById(R.id.bn_next_exercise).setEnabled(true); // Enable Next Button
+                findViewById(R.id.bn_prev_exercise).setEnabled(true); // Enable Prev Button
+            }
         }.start();
     }
 

@@ -9,6 +9,9 @@ public class Exercise {
     protected String Name;
     protected String Description;
     protected int LengthOfExcercise;
+    protected ExerciseStatus Status;
+
+    public static enum ExerciseStatus {READY, RUNNING, FINISHED};
 
     protected Exercise() {
     }
@@ -17,6 +20,7 @@ public class Exercise {
         Name = name;
         Description = "Simple description";
         LengthOfExcercise = 0;
+        Status = ExerciseStatus.READY;
     }
 
     public String getName() {
@@ -42,5 +46,15 @@ public class Exercise {
     public void setLengthOfExcercise(int secconds) {
         LengthOfExcercise = secconds;
     }
+
+    public void run() {
+        Status = ExerciseStatus.RUNNING;
+    }
+
+    public void finish() {
+        Status = ExerciseStatus.FINISHED;
+    }
+
+    public ExerciseStatus getStatus() { return Status; }
 
 }
