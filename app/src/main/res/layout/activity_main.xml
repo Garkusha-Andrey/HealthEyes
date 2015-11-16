@@ -15,42 +15,30 @@
         android:id="@+id/tv_exercise_description"
         android:text="@string/exercise_description"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_exercise_name"
-        android:layout_alignParentStart="true" />
+        android:layout_height="wrap_content" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="00:00"
-        android:id="@+id/tv_timer"
-        android:layout_below="@+id/tv_exercise_description"
-        android:layout_toEndOf="@+id/tv_exercise_description" />
+        android:id="@+id/tv_timer" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/start_exercise"
         android:id="@+id/bn_start_exercise"
-        android:layout_below="@+id/tv_timer"
-        android:layout_alignParentStart="true"
         android:onClick="clickStartExercise"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/next_exercise"
         android:id="@+id/bn_next_exercise"
-        android:onClick="clickNextExercise"
-        android:layout_below="@+id/tv_timer"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="66dp" />
+        android:onClick="clickNextExercise" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/previous_exercise"
         android:id="@+id/bn_prev_exercise"
-        android:layout_alignParentStart="true"
-        android:onClick="clickPrevExercise"
-        android:layout_below="@+id/bn_next_exercise"
-        android:layout_alignParentLeft="true" />
+        android:onClick="clickPrevExercise" />
 </LinearLayout>
