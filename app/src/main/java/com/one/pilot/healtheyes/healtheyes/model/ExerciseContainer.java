@@ -15,15 +15,12 @@ public class ExerciseContainer {
     protected int currentExercise;
 
     public ExerciseContainer() {
-        Log.e("1", "Constructor");
         Container = new ArrayList<Exercise>();
         currentExercise = 0;
     }
 
     public void add(Exercise exercise) {
-        Log.e("1", "Start of add");
         Container.add(exercise);
-        Log.e("1", "End of add");
     }
 
     public Exercise getCurrentExercise() {

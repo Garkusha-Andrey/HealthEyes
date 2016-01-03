@@ -7,10 +7,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.one.pilot.healtheyes.healtheyes.deviceDependent.AbstractAlarm;
-import com.one.pilot.healtheyes.healtheyes.deviceDependent.vibration.AndroidVibration;
+import com.one.pilot.healtheyes.healtheyes.alarm.vibration.AndroidVibration;
 import com.one.pilot.healtheyes.healtheyes.model.Exercise;
 import com.one.pilot.healtheyes.healtheyes.model.ExerciseContainer;
+import com.pascalwelsch.holocircularprogressbar.HoloCircularProgressBar;
 
 import utils.one.com.TimeHelper;
 
@@ -18,9 +18,10 @@ public class MainActivity extends AppCompatActivity {
 
     ExerciseContainer exercises = new ExerciseContainer();
 
-    protected TextView tv_Name;
-    protected TextView tv_Description;
-    protected TextView tv_Timer;
+    private TextView tv_Name;
+    private TextView tv_Description;
+    private TextView tv_Timer;
+    private HoloCircularProgressBar mHoloCircularProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,17 +31,19 @@ public class MainActivity extends AppCompatActivity {
         tv_Name = (TextView)findViewById(R.id.tv_exercise_name);
         tv_Description = (TextView)findViewById(R.id.tv_exercise_description);
         tv_Timer = (TextView)findViewById(R.id.tv_timer);
+        mHoloCircularProgressBar = (HoloCircularProgressBar)findViewById(
+                R.id.holoCircularProgressBar);
 
         Exercise exercise1 = new Exercise("Exercise 1",
-                "Description for exercise 1", 9);
+                "Description for exercise 1", 3);
         Exercise exercise2 = new Exercise("Exercise 2",
-                "Description for exercise 2", 12);
+                "Description for exercise 2", 5);
         Exercise exercise3 = new Exercise("Exercise 3",
-                "Description for exercise 3", 711);
+                "Description for exercise 3", 7);
         Exercise exercise4 = new Exercise("Exercise 4",
-                "Description for exercise 4", 72);
+                "Description for exercise 4", 11);
         Exercise exercise5 = new Exercise("Exercise 5",
-                "Description for exercise 5", 42);
+                "Description for exercise 5", 256);
         AndroidVibration av = new AndroidVibration(this);
         exercise1.addAlarm(av);
 
@@ -54,9 +57,8 @@ public class MainActivity extends AppCompatActivity {
         tv_Description.setText(exercises.getCurrentExercise().getDescription());
         tv_Timer.setText(TimeHelper.seccondsToStringMMSS(exercises.getCurrentExercise()
                 .getDuration()));
+        mHoloCircularProgressBar.setProgress(0.0F);
 
-        //AndroidVibration aVibration = new AndroidVibration(this);
-        //aVibration.call(AbstractAlarm.AlarmType.FINISHED);
     }
 
     public void clickStartExercise(View view) {
@@ -67,13 +69,20 @@ public class MainActivity extends AppCompatActivity {
         exercises.getCurrentExercise().run();
         int duration = exercises.getCurrentExercise().getDuration();
 
+
         findViewById(R.id.bn_next_exercise).setEnabled(false); // Disable Next Button
         findViewById(R.id.bn_prev_exercise).setEnabled(false); // Disable Prev Button
+        mHoloCircularProgressBar.setProgress(0.0F);
+        mHoloCircularProgressBar.setMarkerProgress(0.5F);
 
         CountDownTimer countDownTimer = new CountDownTimer(duration * 1000, 100) {
+            float mark = 0.0F;
             @Override
             public void onTick(long millisUntilFinished) {
                 tv_Timer.setText(TimeHelper.seccondsToStringMMSS((int)(millisUntilFinished / 1000)));
+
+                mark += 0.05F;
+                mHoloCircularProgressBar.setProgress(mark);
             }
 
             @Override

@@ -1,8 +1,8 @@
-package com.one.pilot.healtheyes.healtheyes.deviceDependent.vibration;
+package com.one.pilot.healtheyes.healtheyes.alarm.vibration;
 
 import android.os.Vibrator;
 
-import com.one.pilot.healtheyes.healtheyes.deviceDependent.AbstractAlarm;
+import com.one.pilot.healtheyes.healtheyes.alarm.AbstractAlarm;
 
 import java.util.HashMap;
 

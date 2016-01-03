@@ -1,4 +1,4 @@
-package com.one.pilot.healtheyes.healtheyes.deviceDependent;
+package com.one.pilot.healtheyes.healtheyes.alarm;
 
 /**
  * Created by Garkusha Andrey on 1/3/16.

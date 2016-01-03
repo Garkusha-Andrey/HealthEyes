@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/HealthEyes.iml" filepath="$PROJECT_DIR$/HealthEyes.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library-debug/library-debug.iml" filepath="$PROJECT_DIR$/library-debug/library-debug.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library-release/library-release.iml" filepath="$PROJECT_DIR$/library-release/library-release.iml" />
     </modules>
   </component>
 </project>

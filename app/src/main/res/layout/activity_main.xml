@@ -6,6 +6,7 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <!-- Text description of exercise -->
     <TextView
         android:id="@+id/tv_exercise_name"
         android:text="@string/exercise_name"
@@ -19,26 +20,48 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="40dp"
         android:text="00:00"
-        android:id="@+id/tv_timer" />
+        android:id="@+id/tv_timer"
+        />
 
-    <Button
-        android:layout_width="wrap_content"
+    <!-- Information table of exercise -->
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/start_exercise"
-        android:id="@+id/bn_start_exercise"
-        android:onClick="clickStartExercise"/>
-    <Button
-        android:layout_width="wrap_content"
+        android:gravity="center"
+        >
+        <com.pascalwelsch.holocircularprogressbar.HoloCircularProgressBar
+            android:id="@+id/holoCircularProgressBar"
+            android:layout_width="300dp"
+            android:layout_height="300dp" />
+    </RelativeLayout>
+
+    <!-- Control Buttons-->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/next_exercise"
-        android:id="@+id/bn_next_exercise"
-        android:onClick="clickNextExercise" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/previous_exercise"
-        android:id="@+id/bn_prev_exercise"
-        android:onClick="clickPrevExercise" />
+        android:gravity="center"
+        android:layout_marginTop="20dp">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/start_exercise"
+            android:id="@+id/bn_start_exercise"
+            android:onClick="clickStartExercise"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/next_exercise"
+            android:id="@+id/bn_next_exercise"
+            android:onClick="clickNextExercise" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/previous_exercise"
+            android:id="@+id/bn_prev_exercise"
+            android:onClick="clickPrevExercise" />
+    </LinearLayout>
 </LinearLayout>

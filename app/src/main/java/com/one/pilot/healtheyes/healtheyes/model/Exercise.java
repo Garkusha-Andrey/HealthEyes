@@ -1,6 +1,6 @@
 package com.one.pilot.healtheyes.healtheyes.model;
 
-import com.one.pilot.healtheyes.healtheyes.deviceDependent.AbstractAlarm;
+import com.one.pilot.healtheyes.healtheyes.alarm.AbstractAlarm;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -20,10 +20,6 @@ public class Exercise {
     private List<AbstractAlarm> alarms = new ArrayList();
 
     private Exercise() {
-    }
-
-    public Exercise(String name) {
-        initExercise(name, "Simple description", 0);
     }
 
     public Exercise(String name, String description, int duration) {
