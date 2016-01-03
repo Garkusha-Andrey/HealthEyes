@@ -1,6 +1,10 @@
 package com.one.pilot.healtheyes.healtheyes.model;
 
-import android.util.Log;
+import com.one.pilot.healtheyes.healtheyes.deviceDependent.AbstractAlarm;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by Garkusha Andrey on 11/12/15.
@@ -8,19 +12,22 @@ import android.util.Log;
 public class Exercise {
     protected String Name;
     protected String Description;
-    protected int LengthOfExcercise;
+    protected int Duration;
     protected ExerciseStatus Status;
 
-    public static enum ExerciseStatus {READY, RUNNING, FINISHED};
 
-    protected Exercise() {
+    public static enum ExerciseStatus {READY, RUNNING, FINISHED};
+    private List<AbstractAlarm> alarms = new ArrayList();
+
+    private Exercise() {
     }
 
     public Exercise(String name) {
-        Name = name;
-        Description = "Simple description";
-        LengthOfExcercise = 0;
-        Status = ExerciseStatus.READY;
+        initExercise(name, "Simple description", 0);
+    }
+
+    public Exercise(String name, String description, int duration) {
+        initExercise(name, description, duration);
     }
 
     public String getName() {
@@ -31,21 +38,21 @@ public class Exercise {
         Name = name;
     }
 
-    public String getDescription() {
-        return Description;
-    }
+    public String getDescription() { return Description; }
 
     public void setDescription(String description) {
         Description = description;
     }
 
-    public int getLengthOfExcercise() {
-        return LengthOfExcercise;
+    public int getDuration() { return Duration; }
+
+    public void setDuration(int seconds) {
+        Duration = seconds;
     }
 
-    public void setLengthOfExcercise(int secconds) {
-        LengthOfExcercise = secconds;
-    }
+    public ExerciseStatus getStatus() { return Status; }
+
+    public void addAlarm(AbstractAlarm alarm) { alarms.add(alarm); }
 
     public void run() {
         Status = ExerciseStatus.RUNNING;
@@ -53,8 +60,20 @@ public class Exercise {
 
     public void finish() {
         Status = ExerciseStatus.FINISHED;
+
+        Iterator i = alarms.iterator();
+        while (i.hasNext()) {
+            AbstractAlarm alarm = (AbstractAlarm)i.next();
+            alarm.call(AbstractAlarm.AlarmType.FINISHED);
+        }
     }
 
-    public ExerciseStatus getStatus() { return Status; }
+    /* Private methods */
+    private void initExercise(String name, String description, int duration) {
+        Name = name;
+        Description = description;
+        Duration = duration;
+        Status = ExerciseStatus.READY;
+    }
 
 }

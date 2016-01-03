@@ -26,10 +26,6 @@ public class ExerciseContainer {
         Log.e("1", "End of add");
     }
 
-    public void add(String name) {
-        Exercise exercise = new Exercise();
-    }
-
     public Exercise getCurrentExercise() {
         if (Container.isEmpty()) {
             Log.e("Exercise", "The container is empty");

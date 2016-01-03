@@ -5,9 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
+import com.one.pilot.healtheyes.healtheyes.deviceDependent.AbstractAlarm;
+import com.one.pilot.healtheyes.healtheyes.deviceDependent.vibration.AndroidVibration;
 import com.one.pilot.healtheyes.healtheyes.model.Exercise;
 import com.one.pilot.healtheyes.healtheyes.model.ExerciseContainer;
 
@@ -30,21 +31,19 @@ public class MainActivity extends AppCompatActivity {
         tv_Description = (TextView)findViewById(R.id.tv_exercise_description);
         tv_Timer = (TextView)findViewById(R.id.tv_timer);
 
-        Exercise exercise1 = new Exercise("Exercise 1");
-        exercise1.setDescription("Description for exercise 1");
-        exercise1.setLengthOfExcercise(9);
-        Exercise exercise2 = new Exercise("Exercise 2");
-        exercise2.setDescription("Description for exercise 2");
-        exercise2.setLengthOfExcercise(12);
-        Exercise exercise3 = new Exercise("Exercise 3");
-        exercise3.setDescription("Description for exercise 3");
-        exercise3.setLengthOfExcercise(711);
-        Exercise exercise4 = new Exercise("Exercise 4");
-        exercise4.setDescription("Description for exercise 4");
-        exercise4.setLengthOfExcercise(72);
-        Exercise exercise5 = new Exercise("Exercise 5");
-        exercise5.setDescription("Description for exercise 5");
-        exercise5.setLengthOfExcercise(42);
+        Exercise exercise1 = new Exercise("Exercise 1",
+                "Description for exercise 1", 9);
+        Exercise exercise2 = new Exercise("Exercise 2",
+                "Description for exercise 2", 12);
+        Exercise exercise3 = new Exercise("Exercise 3",
+                "Description for exercise 3", 711);
+        Exercise exercise4 = new Exercise("Exercise 4",
+                "Description for exercise 4", 72);
+        Exercise exercise5 = new Exercise("Exercise 5",
+                "Description for exercise 5", 42);
+        AndroidVibration av = new AndroidVibration(this);
+        exercise1.addAlarm(av);
+
         exercises.add(exercise1);
         exercises.add(exercise2);
         exercises.add(exercise3);
@@ -54,7 +53,10 @@ public class MainActivity extends AppCompatActivity {
         tv_Name.setText("Exercise: " + exercises.getCurrentExercise().getName());
         tv_Description.setText(exercises.getCurrentExercise().getDescription());
         tv_Timer.setText(TimeHelper.seccondsToStringMMSS(exercises.getCurrentExercise()
-                .getLengthOfExcercise()));
+                .getDuration()));
+
+        //AndroidVibration aVibration = new AndroidVibration(this);
+        //aVibration.call(AbstractAlarm.AlarmType.FINISHED);
     }
 
     public void clickStartExercise(View view) {
@@ -63,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             return;
 
         exercises.getCurrentExercise().run();
-        int duration = exercises.getCurrentExercise().getLengthOfExcercise();
+        int duration = exercises.getCurrentExercise().getDuration();
 
         findViewById(R.id.bn_next_exercise).setEnabled(false); // Disable Next Button
         findViewById(R.id.bn_prev_exercise).setEnabled(false); // Disable Prev Button
@@ -91,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         tv_Name.setText("Exercise: " + exercises.getCurrentExercise().getName());
         tv_Description.setText(exercises.getCurrentExercise().getDescription());
         tv_Timer.setText(TimeHelper.seccondsToStringMMSS(exercises.getCurrentExercise()
-                .getLengthOfExcercise()));
+                .getDuration()));
     }
 
     public void clickPrevExercise(View view) {
@@ -102,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         tv_Name.setText("Exercise: " + exercises.getCurrentExercise().getName());
         tv_Description.setText(exercises.getCurrentExercise().getDescription());
         tv_Timer.setText(TimeHelper.seccondsToStringMMSS(exercises.getCurrentExercise()
-                .getLengthOfExcercise()));
+                .getDuration()));
     }
 
 }
