@@ -52,16 +52,12 @@ public class Exercise {
 
     public void run() {
         Status = ExerciseStatus.RUNNING;
+        runAllAlarms(AbstractAlarm.AlarmType.STARTED);
     }
 
     public void finish() {
         Status = ExerciseStatus.FINISHED;
-
-        Iterator i = alarms.iterator();
-        while (i.hasNext()) {
-            AbstractAlarm alarm = (AbstractAlarm)i.next();
-            alarm.call(AbstractAlarm.AlarmType.FINISHED);
-        }
+        runAllAlarms(AbstractAlarm.AlarmType.FINISHED);
     }
 
     /* Private methods */
@@ -70,6 +66,14 @@ public class Exercise {
         Description = description;
         Duration = duration;
         Status = ExerciseStatus.READY;
+    }
+
+    private void runAllAlarms(AbstractAlarm.AlarmType type) {
+        Iterator i = alarms.iterator();
+        while (i.hasNext()) {
+            AbstractAlarm alarm = (AbstractAlarm)i.next();
+            alarm.call(type);
+        }
     }
 
 }

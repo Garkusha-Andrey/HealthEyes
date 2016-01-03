@@ -29,6 +29,7 @@ public class AndroidVibration extends AbstractAlarm {
             // Pattern transcript; {pause, play, pause, play ...}
             pattern.put(AlarmType.READY, new long[]{0});
             pattern.put(AlarmType.RUNNING, new long[]{0});
+            pattern.put(AlarmType.STARTED, new long[]{0, 100});
             pattern.put(AlarmType.FINISHED, new long[]{0, 200, 200, 200});
         }
     }

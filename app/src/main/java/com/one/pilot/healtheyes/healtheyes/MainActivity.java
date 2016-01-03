@@ -73,16 +73,17 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.bn_next_exercise).setEnabled(false); // Disable Next Button
         findViewById(R.id.bn_prev_exercise).setEnabled(false); // Disable Prev Button
         mHoloCircularProgressBar.setProgress(0.0F);
-        mHoloCircularProgressBar.setMarkerProgress(0.5F);
+        mHoloCircularProgressBar.setMarkerProgress(0.0F);
 
-        CountDownTimer countDownTimer = new CountDownTimer(duration * 1000, 100) {
-            float mark = 0.0F;
+        CountDownTimer countDownTimer = new CountDownTimer(duration * 1000, 70) {
+            float progress = 0.0F;
+            float duration = exercises.getCurrentExercise().getDuration() * 1000; // in ms
             @Override
             public void onTick(long millisUntilFinished) {
                 tv_Timer.setText(TimeHelper.seccondsToStringMMSS((int)(millisUntilFinished / 1000)));
 
-                mark += 0.05F;
-                mHoloCircularProgressBar.setProgress(mark);
+                progress = (duration - millisUntilFinished) / duration;
+                mHoloCircularProgressBar.setProgress(progress);
             }
 
             @Override
@@ -90,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 exercises.getCurrentExercise().finish();
                 findViewById(R.id.bn_next_exercise).setEnabled(true); // Enable Next Button
                 findViewById(R.id.bn_prev_exercise).setEnabled(true); // Enable Prev Button
+                mHoloCircularProgressBar.setProgress(1.0F);
             }
         }.start();
     }

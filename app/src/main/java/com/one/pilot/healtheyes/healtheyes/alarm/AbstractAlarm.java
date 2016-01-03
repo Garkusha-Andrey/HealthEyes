@@ -10,7 +10,7 @@ public abstract class AbstractAlarm {
 
     /** We have some defined Alarm types, which named in
      * this enum */
-    public static enum AlarmType {READY, RUNNING, FINISHED};
+    public static enum AlarmType {READY, RUNNING, STARTED, FINISHED};
 
     /** The only function in this class. It calls some alarm,
      * which related to type of alarm */
