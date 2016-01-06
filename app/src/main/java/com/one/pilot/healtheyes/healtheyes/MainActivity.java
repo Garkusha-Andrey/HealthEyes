@@ -80,7 +80,9 @@ public class MainActivity extends AppCompatActivity {
             float duration = exercises.getCurrentExercise().getDuration() * 1000; // in ms
             @Override
             public void onTick(long millisUntilFinished) {
-                tv_Timer.setText(TimeHelper.seccondsToStringMMSS((int)(millisUntilFinished / 1000)));
+                // +999 need to make timer more comfortable for user
+                tv_Timer.setText(TimeHelper.seccondsToStringMMSS(
+                        (int)((millisUntilFinished + 999) / 1000 )));
 
                 progress = (duration - millisUntilFinished) / duration;
                 mHoloCircularProgressBar.setProgress(progress);
@@ -89,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 exercises.getCurrentExercise().finish();
+                tv_Timer.setText(TimeHelper.seccondsToStringMMSS(0));
                 findViewById(R.id.bn_next_exercise).setEnabled(true); // Enable Next Button
                 findViewById(R.id.bn_prev_exercise).setEnabled(true); // Enable Prev Button
                 mHoloCircularProgressBar.setProgress(1.0F);
