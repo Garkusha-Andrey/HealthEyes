@@ -52,12 +52,12 @@ public class Exercise {
 
     public void run() {
         Status = ExerciseStatus.RUNNING;
-        runAllAlarms(AbstractAlarm.AlarmType.STARTED);
+        alarm(AbstractAlarm.AlarmType.STARTED);
     }
 
     public void finish() {
         Status = ExerciseStatus.FINISHED;
-        runAllAlarms(AbstractAlarm.AlarmType.FINISHED);
+        alarm(AbstractAlarm.AlarmType.FINISHED);
     }
 
     /* Private methods */
@@ -68,7 +68,7 @@ public class Exercise {
         Status = ExerciseStatus.READY;
     }
 
-    private void runAllAlarms(AbstractAlarm.AlarmType type) {
+    private void alarm(AbstractAlarm.AlarmType type) {
         Iterator i = alarms.iterator();
         while (i.hasNext()) {
             AbstractAlarm alarm = (AbstractAlarm)i.next();
