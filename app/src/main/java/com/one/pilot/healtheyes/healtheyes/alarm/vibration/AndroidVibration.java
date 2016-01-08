@@ -2,7 +2,7 @@ package com.one.pilot.healtheyes.healtheyes.alarm.vibration;
 
 import android.os.Vibrator;
 
-import com.one.pilot.healtheyes.healtheyes.alarm.AbstractAlarm;
+import com.one.pilot.healtheyes.healtheyes.alarm.IAlarm;
 
 import java.util.HashMap;
 
@@ -14,7 +14,7 @@ import java.util.HashMap;
  * Previously need to define vibration patterns. It happens
  * in constructor of the class.
  */
-public class AndroidVibration extends AbstractAlarm {
+public class AndroidVibration implements IAlarm {
     private Vibrator vibrator;
     private static HashMap<AlarmType, long[]> pattern = null;
 
