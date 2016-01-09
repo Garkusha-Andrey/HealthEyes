@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.one.pilot.healtheyes.healtheyes.alarm.vibration.AndroidVibration;
 import com.one.pilot.healtheyes.healtheyes.exercise.Exercise;
 import com.one.pilot.healtheyes.healtheyes.exercise.ExerciseContainer;
+import com.one.pilot.healtheyes.healtheyes.exercise.ExerciseVisualization;
 import com.one.pilot.healtheyes.healtheyes.timer.ExerciseTimer;
 import com.one.pilot.healtheyes.healtheyes.timer.TimerVisualization;
 import com.pascalwelsch.holocircularprogressbar.HoloCircularProgressBar;
@@ -16,9 +17,8 @@ public class MainActivity extends AppCompatActivity {
 
     ExerciseContainer exercises = new ExerciseContainer();
 
-    private TextView tv_Name;
-    private TextView tv_Description;
     private TimerVisualization timerVisualization = new TimerVisualization();
+    private ExerciseVisualization exerciseVisualization = new ExerciseVisualization();
     private ExerciseTimer exerciseTimer = new ExerciseTimer();
 
     @Override
@@ -26,14 +26,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tv_Name = (TextView)findViewById(R.id.tv_exercise_name);
-        tv_Description = (TextView)findViewById(R.id.tv_exercise_description);
-
         AndroidVibration av = new AndroidVibration(this);
 
         timerVisualization.setTextView((TextView) findViewById(R.id.tv_timer));
         timerVisualization.setProgressBar((HoloCircularProgressBar) findViewById(
                 R.id.holoCircularProgressBar));
+
+        exerciseVisualization.setNameTextView((TextView) findViewById(R.id.tv_exercise_name));
+        exerciseVisualization.setDescriptionTextView((TextView)findViewById(R.id.tv_exercise_description));
 
         exerciseTimer.setTimerVisualisation(timerVisualization);
 
@@ -56,11 +56,7 @@ public class MainActivity extends AppCompatActivity {
         exercises.add(exercise4);
         exercises.add(exercise5);
 
-        tv_Name.setText("Exercise: " + exercises.getCurrentExercise().getName());
-        tv_Description.setText(exercises.getCurrentExercise().getDescription());
-
-        exerciseTimer.init(exercises.getCurrentExercise());
-
+        prepareNewExercise();
     }
 
     public void clickStartExercise(View view) {
@@ -69,19 +65,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void clickNextExercise(View view) {
         exercises.next();
-
-        tv_Name.setText("Exercise: " + exercises.getCurrentExercise().getName());
-        tv_Description.setText(exercises.getCurrentExercise().getDescription());
-
-        exerciseTimer.init(exercises.getCurrentExercise());
+        prepareNewExercise();
     }
 
     public void clickPrevExercise(View view) {
         exercises.prev();
+        prepareNewExercise();
+    }
 
-        tv_Name.setText("Exercise: " + exercises.getCurrentExercise().getName());
-        tv_Description.setText(exercises.getCurrentExercise().getDescription());
-
+    private void prepareNewExercise() {
+        exerciseVisualization.update(exercises.getCurrentExercise());
         exerciseTimer.init(exercises.getCurrentExercise());
     }
 
