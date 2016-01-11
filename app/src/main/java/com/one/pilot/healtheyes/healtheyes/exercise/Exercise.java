@@ -1,5 +1,7 @@
 package com.one.pilot.healtheyes.healtheyes.exercise;
 
+import android.util.Log;
+
 import com.one.pilot.healtheyes.healtheyes.alarm.IAlarm;
 
 import java.util.ArrayList;
