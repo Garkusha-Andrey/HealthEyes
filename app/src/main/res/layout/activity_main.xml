@@ -39,7 +39,7 @@
             android:layout_width="250dp"
             android:layout_height="250dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/android"
+            android:id="@+id/gif_image_view"
             />
         <com.pascalwelsch.holocircularprogressbar.HoloCircularProgressBar
             android:id="@+id/holoCircularProgressBar"

@@ -12,6 +12,8 @@ import java.util.List;
  * Created by Garkusha Andrey on 11/12/15.
  */
 public class Exercise {
+
+    public static enum ExerciseAction {INIT, START, PAUSE, STOP, DEINIT};
     public static enum ExerciseStatus {READY, RUNNING, FINISHED};
 
     private String name;
@@ -20,7 +22,8 @@ public class Exercise {
     private ExerciseStatus status;
     private List<IAlarm> alarms = new ArrayList();
 
-    private Exercise() {
+    protected Exercise() {
+        initExercise("", "", 0);
     }
 
     public Exercise(String name, String description, int duration) {
@@ -51,14 +54,28 @@ public class Exercise {
 
     public void addAlarm(IAlarm alarm) { alarms.add(alarm); }
 
-    public void start() {
-        status = ExerciseStatus.RUNNING;
-        alarm(IAlarm.AlarmType.STARTED);
-    }
-
-    public void stop() {
-        status = ExerciseStatus.FINISHED;
-        alarm(IAlarm.AlarmType.FINISHED);
+    public int action(ExerciseAction newState) {
+        switch (newState) {
+            case INIT:
+                init();
+                break;
+            case START:
+                start();
+                break;
+            case PAUSE:
+                pause();
+                break;
+            case STOP:
+                stop();
+                break;
+            case DEINIT:
+                deinit();
+                break;
+            default:
+                Log.e("Workout Platform", "Action" + newState + "is not defined");
+                return 1;
+        }
+        return 0;
     }
 
     /* Private methods */
@@ -68,6 +85,22 @@ public class Exercise {
         this.duration = duration;
         status = ExerciseStatus.READY;
     }
+
+    protected void init() {}
+
+    protected void start() {
+        status = ExerciseStatus.RUNNING;
+        alarm(IAlarm.AlarmType.STARTED);
+    }
+
+    protected void pause() {}
+
+    protected void stop() {
+        status = ExerciseStatus.FINISHED;
+        alarm(IAlarm.AlarmType.FINISHED);
+    }
+
+    protected void deinit() {}
 
     private void alarm(IAlarm.AlarmType type) {
         Iterator i = alarms.iterator();

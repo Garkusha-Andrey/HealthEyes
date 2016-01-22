@@ -27,13 +27,12 @@ public class ExerciseTimer {
         if (status == TimerStatus.RUNNING) return 0;
 
         status = TimerStatus.RUNNING;
-        if (exercise != null) exercise.start();
+        if (exercise != null) exercise.action(Exercise.ExerciseAction.START);
         timer.start();
         return 0;
     }
 
     public int pause() {
-        // TODO: not sure that it should be implemented
         return 1;
     }
 
@@ -45,6 +44,8 @@ public class ExerciseTimer {
 
     public void init(Exercise cur_exercise) {
         exercise = cur_exercise;
+        cur_exercise.action(Exercise.ExerciseAction.DEINIT);
+        cur_exercise.action(Exercise.ExerciseAction.INIT);
         final long duration = exercise.getDuration() * 1000;
 
         // define timer class that will handle timer functionality
@@ -59,7 +60,7 @@ public class ExerciseTimer {
             @Override
             public void onFinish() {
                 status = TimerStatus.FINISHED;
-                exercise.stop();
+                exercise.action(Exercise.ExerciseAction.STOP);
 
                 if (timerVisualization != null )
                     timerVisualization.update(0, duration);

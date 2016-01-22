@@ -9,9 +9,12 @@ import com.one.pilot.healtheyes.healtheyes.alarm.vibration.AndroidVibration;
 import com.one.pilot.healtheyes.healtheyes.exercise.ExerciseContainer;
 import com.one.pilot.healtheyes.healtheyes.exercise.ExerciseVisualization;
 import com.one.pilot.healtheyes.healtheyes.exercise.factory.InbuiltExercises;
+import com.one.pilot.healtheyes.healtheyes.exercise.view.ExerciseDrawableGif;
 import com.one.pilot.healtheyes.healtheyes.timer.ExerciseTimer;
 import com.one.pilot.healtheyes.healtheyes.timer.TimerVisualization;
 import com.pascalwelsch.holocircularprogressbar.HoloCircularProgressBar;
+
+import pl.droidsonroids.gif.GifImageView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +24,10 @@ public class MainActivity extends AppCompatActivity {
 
     private TimerVisualization timerVisualization = new TimerVisualization();
     private ExerciseVisualization exerciseVisualization = new ExerciseVisualization();
+    private ExerciseDrawableGif exerciseDrawableGif = new ExerciseDrawableGif();
+
+    //private GifImageView gifImageView;
+    //GifDrawable gifDrawable = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +41,16 @@ public class MainActivity extends AppCompatActivity {
                 R.id.holoCircularProgressBar));
 
         exerciseVisualization.setNameTextView((TextView) findViewById(R.id.tv_exercise_name));
-        exerciseVisualization.setDescriptionTextView((TextView) findViewById(R.id.tv_exercise_description));
+        exerciseVisualization.setDescriptionTextView((TextView) findViewById(
+                R.id.tv_exercise_description));
+
+        exerciseDrawableGif.setGifDrawableParam((GifImageView) findViewById(R.id.gif_image_view),
+                this);
+        exerciseDrawableGif.setNoImage(R.drawable.noimage);
 
         exerciseTimer.setTimerVisualisation(timerVisualization);
         inbuiltExercises.addAlarm(av);
-        inbuiltExercises.replenish(exercises);
+        inbuiltExercises.replenish(exercises, exerciseDrawableGif);
 
         prepareNewExercise();
     }
